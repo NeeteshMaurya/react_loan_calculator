@@ -1,0 +1,17 @@
+
+.card{
+    height: 300px;
+    width: 300px;
+    margin-top: 200px;
+    
+}
+.card-body{
+    text-align: center;
+}
+.container{
+    display: flex;
+    background-color: blue;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100vw;
+}
