@@ -1,0 +1,13 @@
+/* .container{
+    display: flex;
+    color: white;
+    font-weight: bold;
+    font-size: larger;
+    height: ;
+} */
+.data{
+    display: flex;
+}
+.amt{
+    margin-right: 40px;
+}
