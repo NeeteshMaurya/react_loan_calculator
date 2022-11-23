@@ -34,14 +34,6 @@ const Calculator = () => {
             setFromDate(values[0].$d)
             setToDate(values[1].$d)
         
-            const dateToday = new Date()    //today's date
-            const date = dateToday.setHours(0,0,0,0)  //date timestamp at midnight
-            const endDate = values[1].$d     //end date as string
-
-            const endDateTimestamp = endDate.setHours(0,0,0,0)  //end date timestamp at miniht
-            const remainingDaysTS = endDateTimestamp-date        //counting how many days left(timestamp)
-            const remainingDays = remainingDaysTS/86400000   //concertin timestamp into days
-            console.log(remainingDays)
             console.log(days)
         }}
         /><br/>

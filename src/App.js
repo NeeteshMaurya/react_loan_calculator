@@ -1,20 +1,20 @@
 
 import Calculator from './Calculator';
 import './App.css'
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
 import ShowData from './ShowData';
-
+import Paid from './Paid';
 
 function App() {
   return (
     <div>
         <div className='container1'>
-          <div className="card mx-auto">
+          <div className="card">
             <div className="card-body">
               <Calculator />
             </div>
+          </div>
+          <div className='container2'>
+            <Paid />
           </div>
         </div>
         <div>

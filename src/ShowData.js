@@ -2,8 +2,14 @@ import React from 'react'
 import './ShowData.css'
 
 const ShowData = () => {
-  function updateNumofDays (){
-    
+  function updatePerDayPayment (){
+    const dateToday = new Date()    //today's date
+      const date = dateToday.setHours(0,0,0,0)  //date timestamp at midnight
+      const endDate = localStorage.getItem("toDate") //end date as string
+      const endDateTimestamp = endDate.setHours(0,0,0,0)  //end date timestamp at miniht
+      const remainingDaysTS = endDateTimestamp-date        //counting how many days left(timestamp)
+      const remainingDays = remainingDaysTS/86400000   //concertin timestamp into days
+      console.log(remainingDays)
   }
   return (
     <>
