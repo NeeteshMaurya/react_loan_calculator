@@ -7,21 +7,19 @@ import CardContent from '@mui/material/CardContent';
 import ShowData from './ShowData';
 
 
-
 function App() {
   return (
-    <div className='container'>
-      <div className="card mx-auto">
-        <div className="card-body">
-          <Calculator />
+    <div>
+        <div className='container1'>
+          <div className="card mx-auto">
+            <div className="card-body">
+              <Calculator />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="card mx-auto">
-        <div className="card-body">
+        <div>
           <ShowData />
         </div>
-      </div>
-
     </div>
   );
 }
