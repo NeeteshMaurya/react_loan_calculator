@@ -12,7 +12,7 @@ const Calculator = () => {
     const [numOfDays, setnumOfDays] = useState()
     const [amount, setAmount] = useState()
     const [borrower, setBorrower] = useState()
-    const [perDayAmount, setPerDayAmount] = useState()
+    const [endDateTimeStamp, setendDateTimeStamp] = useState()
 
     //to handle the click
     const handle=() => {
@@ -23,6 +23,7 @@ const Calculator = () => {
         localStorage.setItem("fromDate", fromDate)
         localStorage.setItem("toDate",toDate)
         localStorage.setItem("perDayAmount",amountToPay)
+        localStorage.setItem("endDateTimeStamp",endDateTimeStamp)
     }
 
     return(
@@ -33,8 +34,12 @@ const Calculator = () => {
             setnumOfDays(days)   //number of days at initial stage
             setFromDate(values[0].$d)
             setToDate(values[1].$d)
+            //saving end date timestamp(we will use it while updating amount per day to count number of remaining days)
+            const endDateString = values[1].$d
+            const endDateTS = endDateString.setHours(0,0,0,0,)
+            setendDateTimeStamp(endDateTS)
         
-            console.log(days)
+            console.log(endDateString)
         }}
         /><br/>
         <TextField id="standard-basic" label="Amount" variant="standard" onChange={(e)=>setAmount(e.target.value)} /><br />

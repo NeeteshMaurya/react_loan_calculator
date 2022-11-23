@@ -1,16 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './ShowData.css'
+import moment from 'moment'
 
 const ShowData = () => {
+  const [perDayAmount, setPerDayAmount] = useState()
   function updatePerDayPayment (){
-    const dateToday = new Date()    //today's date
+      const dateToday = new Date()    //today's date
       const date = dateToday.setHours(0,0,0,0)  //date timestamp at midnight
-      const endDate = localStorage.getItem("toDate") //end date as string
-      const endDateTimestamp = endDate.setHours(0,0,0,0)  //end date timestamp at miniht
-      const remainingDaysTS = endDateTimestamp-date        //counting how many days left(timestamp)
-      const remainingDays = remainingDaysTS/86400000   //concertin timestamp into days
-      console.log(remainingDays)
+      const endDate = localStorage.getItem("endDateTimeStamp") //end date timestamp
+  
+      const remainingDaysTS = endDate-date        //counting how many days left(timestamp)
+      const remainingDays = remainingDaysTS/86400000   //converting timestamp into days
+      const amountTotal = localStorage.getItem("amount")
+      const amountPerDay = amountTotal/remainingDays
+      localStorage.setItem("perDayAmount",amountPerDay)
   }
+
+  var midnight = "0:00:00";
+var now = null;
+
+setInterval(function () {
+    now = moment().format("H:mm:ss");
+    if (now === midnight) {
+        updatePerDayPayment()
+    }
+}, 1000);
+
   return (
     <>
       <div className='containr'>
