@@ -1,10 +1,11 @@
-
+import React from 'react';
 import Calculator from './Calculator';
 import './App.css'
 import ShowData from './ShowData';
 import Paid from './Paid';
 
 function App() {
+  
   return (
     <div>
         <div className='container1'>
@@ -13,9 +14,9 @@ function App() {
               <Calculator />
             </div>
           </div>
-          <div className='container2'>
+        </div>
+        <div className='container2'>
             <Paid />
-          </div>
         </div>
         <div>
           <ShowData />
