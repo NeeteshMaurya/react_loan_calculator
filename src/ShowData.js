@@ -2,7 +2,7 @@ import React from 'react'
 import './ShowData.css'
 import moment from 'moment'
 
-const ShowData = () => {
+export const ShowData = () => {
 
   const refreshPage = () => {
     window.location.reload()
@@ -20,7 +20,7 @@ const ShowData = () => {
       const roundOffAmount = Math.round(amountPerDay * 100)/100
       localStorage.setItem("perDayAmount",roundOffAmount)
   }
-
+//update payment at midnight
   var midnight = "0:00:00";
   var now = null;
   setInterval(function () {
@@ -30,8 +30,21 @@ const ShowData = () => {
     }
   }, 1000);
 
-  function deleteData(){
-    localStorage.clear()
+//setting the data from local and parsing it to make an array
+  const a = JSON.parse(localStorage.getItem('data'))
+
+  const data = []
+  const deleteData=(id)=>{
+    const filterData = a.filter((element)=>{
+      return element.borrower!==id
+    })
+    var otherData
+    for (let i = 0; i < filterData.length; i++) {
+      console.log(filterData[i].amount)
+      otherData = {amount:filterData[i].amount,borrower:filterData[i].borrower,fromDate:filterData[i].fromDate,toDate:filterData[i].toDate,perDayAmount:filterData[i].perDayAmount,endDateTimeStamp:filterData[i].endDateTimeStamp}
+      data.push(otherData)
+      localStorage.setItem("data",JSON.stringify(data))
+    }
     refreshPage()
   }
 
@@ -39,6 +52,7 @@ const ShowData = () => {
     <>
       <div className='containr'>
         <table id='cust'>
+          <tbody>
           <tr>
             <th className='head'>Borrower</th>
             <th className='head'>Amount</th>
@@ -47,14 +61,19 @@ const ShowData = () => {
             <th className='head'>Per Day Payment Amount</th>
             <th></th>
           </tr>
-          <tr>
-            <td>{localStorage.getItem("borrower")}</td>
-            <td>{localStorage.getItem("amount")}</td>
-            <td>{localStorage.getItem("fromDate")}</td>
-            <td>{localStorage.getItem("toDate")}</td>
-            <td>{localStorage.getItem("perDayAmount")}</td>
-            <td><button className='btn btn-danger border border-white' onClick={deleteData}>Delete</button></td>
+         {  
+          !a ? null : a.map((item)=>
+          <tr key={item.borrower}>
+            <td>{item.borrower}</td>
+            <td>{item.amount}</td>
+            <td>{item.fromDate}</td>
+            <td>{item.toDate}</td>
+            <td>{item.perDayAmount}</td>
+            <td><button className='btn btn-danger border border-white' onClick={()=>deleteData(item.borrower)}>Delete</button></td>
           </tr>
+          )
+        }
+        </tbody>
         </table>
       </div>
         
@@ -62,4 +81,4 @@ const ShowData = () => {
   )
 }
 
-export default ShowData
+// export default ShowData

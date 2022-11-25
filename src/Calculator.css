@@ -9,6 +9,9 @@
 .btne{
     height: 60px;
     width: 200px;
+    background-color: blue;
+    border-radius: 20px;
+    color: white;
 }
 .inp{
     width: 300px;

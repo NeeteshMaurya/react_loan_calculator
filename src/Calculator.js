@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from 'react'
-import Button from '@mui/material/Button';
-// import TextField from '@mui/material/TextField';
+import React, { useState } from 'react'
 import { DatePicker } from 'antd';
 import moment from 'moment';
 import './Calculator.css'
@@ -14,28 +12,43 @@ const Calculator = () => {
     const [amount, setAmount] = useState()
     const [borrower, setBorrower] = useState()
     const [endDateTimeStamp, setendDateTimeStamp] = useState()
+//error setter
+    const [borrowerERR,setborrowerERR] = useState(false)
 
     const refreshPage = () => {
       window.location.reload()
     }
-    //const [initialState,setinitialState] = useState(pulse)
 
+    const data = []
+    const a = JSON.parse(localStorage.getItem('data'))
 
+    
     //to handle the click
     const handle=() => {
-        localStorage.setItem("amount",amount)
-        localStorage.setItem("borrower",borrower)
-        const amountToPay = amount/numOfDays
-        const roundOffAmount = Math.round(amountToPay * 100)/100
-        localStorage.setItem("fromDate", fromDate)
-        localStorage.setItem("toDate",toDate)
-        localStorage.setItem("perDayAmount",roundOffAmount)
-        localStorage.setItem("endDateTimeStamp",endDateTimeStamp)
-        refreshPage()
+    
+      const amountToPay = amount/numOfDays
+      const roundOffAmount = Math.round(amountToPay * 100)/100
+
+      // const a = JSON.parse(localStorage.getItem('data')) //getting previous values from storage
+      // const data = []
+      const userData = {amount:amount,borrower:borrower,fromDate:fromDate,toDate:toDate,perDayAmount:roundOffAmount,endDateTimeStamp:endDateTimeStamp}
+      if (!a){
+        data.push(userData)
+      }
+      else{
+        //fetch the previous data by for loop and set it again in local storage
+        var otherData
+        for (let i = 0; i < a.length; i++) {
+          otherData = {amount:a[i].amount,borrower:a[i].borrower,fromDate:a[i].fromDate,toDate:a[i].toDate,perDayAmount:a[i].perDayAmount,endDateTimeStamp:a[i].endDateTimeStamp}
+          data.push(otherData)
+        }
+          data.push(userData)
+      }
+      localStorage.setItem("data",JSON.stringify(data))
+      refreshPage()
     }
     
     //to Handle input and check validations
-    const [borrowerERR,setborrowerERR] = useState(false)
     function nameHandler(e){
       let item = e.target.value
       var letters = /^[A-Za-z]+$/
@@ -67,11 +80,11 @@ const Calculator = () => {
             setendDateTimeStamp(endDateTS)
         }}/><br/>
 
-        <input className='inp' type="number" placeholder='Amount' onChange={(e)=>setAmount(e.target.value)}  />
+        <input className='inp' type="number" placeholder='Amount' onChange={(e)=>setAmount(e.target.value)} required />
         <br /> <br />
-        <input className='inp'  type="text" placeholder='Borrower' onChange={nameHandler} />{borrowerERR?<span>Invalid Name</span>:""}
+        <input className='inp'  type="text" placeholder='Borrower' onChange={nameHandler} required />{borrowerERR?<span>Invalid Name</span>:""}
         
-        <Button className='btne mt-5 fw-bold' variant="contained" onClick={handle}>Create New Loan</Button>
+        <button  className='btne mt-5 fw-bold' variant="contained" onClick={handle}>Create New Loan</button>
       </div>
     );
 }

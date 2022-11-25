@@ -1,7 +1,7 @@
 import React from 'react';
 import Calculator from './Calculator';
 import './App.css'
-import ShowData from './ShowData';
+import {ShowData} from './ShowData';
 import Paid from './Paid';
 
 function App() {
