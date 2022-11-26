@@ -39,7 +39,7 @@ export const ShowData = () => {
     }
   }
 //update payment and Paid button activity at midnight
-  var midnight = "13:11:00";
+  var midnight = "0:00:00";
   var now = null;
   setInterval(function () {
 
