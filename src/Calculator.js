@@ -39,9 +39,8 @@ const Calculator = () => {
             updation = true
             const newAmt = a[i].amount
             const b = parseInt(newAmt)
-            const newroundOfftotal = Math.round(b * 100)/100
             const c = parseInt(amount)
-            const newTotal = newroundOfftotal+c
+            const newTotal = b+c
             const newFromDate = fromDate
             const newToDate = toDate
             const newEndDateTS = endDateTimeStamp
