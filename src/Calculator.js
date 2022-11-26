@@ -39,13 +39,15 @@ const Calculator = () => {
             updation = true
             const newAmt = a[i].amount
             const b = parseInt(newAmt)
+            const newroundOfftotal = Math.round(b * 100)/100
             const c = parseInt(amount)
-            const newTotal = b+c
+            const newTotal = newroundOfftotal+c
             const newFromDate = fromDate
             const newToDate = toDate
             const newEndDateTS = endDateTimeStamp
             const newAmountPerDay = newTotal/numOfDays
-            otherData = {amount:newTotal,borrower:a[i].borrower,fromDate:newFromDate,toDate:newToDate,perDayAmount:newAmountPerDay,endDateTimeStamp:newEndDateTS,buttonActivity:a[i].buttonActivity}
+            const newroundOffAmount = Math.round(newAmountPerDay * 100)/100
+            otherData = {amount:newTotal,borrower:a[i].borrower,fromDate:newFromDate,toDate:newToDate,perDayAmount:newroundOffAmount,endDateTimeStamp:newEndDateTS,buttonActivity:a[i].buttonActivity}
             data.push(otherData)
           }else{
             console.log('here')
@@ -92,12 +94,14 @@ const Calculator = () => {
             const endDateTS = endDateString.setHours(0,0,0,0,)
             setendDateTimeStamp(endDateTS)
         }}/><br/>
-
-        <input className='inp' type="number" placeholder='Amount' onChange={(e)=>setAmount(e.target.value)} required />
-        <br /> <br />
-        <input className='inp'  type="text" placeholder='Borrower' onChange={nameHandler} required />{borrowerERR?<span>Invalid Name</span>:""}
+        <form onSubmit={()=>handle()}>
+          <input className='inp' type="number" placeholder='Amount' onChange={(e)=>setAmount(e.target.value)} required />
+          <br /> <br />
+          <input className='inp'  type="text" placeholder='Borrower' onChange={nameHandler} required />{borrowerERR?<span>Invalid Name</span>:""}
+          
+          <button  className='btne mt-5 fw-bold' variant="contained" >Create New Loan</button>
+        </form>
         
-        <button  className='btne mt-5 fw-bold' variant="contained" onClick={()=>handle()}>Create New Loan</button>
       </div>
     );
 }

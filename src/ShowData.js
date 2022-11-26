@@ -80,7 +80,8 @@ export const ShowData = () => {
     })
     deleteData(id)
     const remaningAmount = filterData[0].amount-filterData[0].perDayAmount
-    var otherData = {amount:remaningAmount,borrower:filterData[0].borrower,fromDate:filterData[0].fromDate,toDate:filterData[0].toDate,perDayAmount:filterData[0].perDayAmount,endDateTimeStamp:filterData[0].endDateTimeStamp,buttonActivity:activity}
+    const roundOffAmount = Math.round(remaningAmount * 100)/100
+    var otherData = {amount:roundOffAmount,borrower:filterData[0].borrower,fromDate:filterData[0].fromDate,toDate:filterData[0].toDate,perDayAmount:filterData[0].perDayAmount,endDateTimeStamp:filterData[0].endDateTimeStamp,buttonActivity:activity}
     data.push(otherData)
     localStorage.setItem("data",JSON.stringify(data))
   }
