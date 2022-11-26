@@ -13,7 +13,7 @@ const Calculator = () => {
     const [borrower, setBorrower] = useState()
     const [endDateTimeStamp, setendDateTimeStamp] = useState()
     var buttonActivity = false
-    //const [buttonActivity,setbuttonActivity] = useState(false)
+    var updation = false
 //error setter
     const [borrowerERR,setborrowerERR] = useState(false)
 
@@ -32,14 +32,30 @@ const Calculator = () => {
       if (!a){
         data.push(userData)
       }
-      else{
-        //fetch the previous data by for loop and set it again in local storage
+      else {
         var otherData
-        for (let i = 0; i < a.length; i++) {
-          otherData = {amount:a[i].amount,borrower:a[i].borrower,fromDate:a[i].fromDate,toDate:a[i].toDate,perDayAmount:a[i].perDayAmount,endDateTimeStamp:a[i].endDateTimeStamp,buttonActivity:a[i].buttonActivity}
-          data.push(otherData)
+        for (let i = 0; i < a.length; i++) { 
+          if(a[i].borrower===borrower){
+            updation = true
+            const newAmt = a[i].amount
+            const b = parseInt(newAmt)
+            const c = parseInt(amount)
+            const newTotal = b+c
+            const newFromDate = fromDate
+            const newToDate = toDate
+            const newEndDateTS = endDateTimeStamp
+            const newAmountPerDay = newTotal/numOfDays
+            otherData = {amount:newTotal,borrower:a[i].borrower,fromDate:newFromDate,toDate:newToDate,perDayAmount:newAmountPerDay,endDateTimeStamp:newEndDateTS,buttonActivity:a[i].buttonActivity}
+            data.push(otherData)
+          }else{
+            console.log('here')
+            otherData = {amount:a[i].amount,borrower:a[i].borrower,fromDate:a[i].fromDate,toDate:a[i].toDate,perDayAmount:a[i].perDayAmount,endDateTimeStamp:a[i].endDateTimeStamp,buttonActivity:a[i].buttonActivity}
+            data.push(otherData)
+          }
         }
+        if(updation===false){
           data.push(userData)
+        }
       }
       localStorage.setItem("data",JSON.stringify(data))
       refreshPage()
