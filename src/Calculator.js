@@ -12,6 +12,8 @@ const Calculator = () => {
     const [amount, setAmount] = useState()
     const [borrower, setBorrower] = useState()
     const [endDateTimeStamp, setendDateTimeStamp] = useState()
+    var buttonActivity = false
+    //const [buttonActivity,setbuttonActivity] = useState(false)
 //error setter
     const [borrowerERR,setborrowerERR] = useState(false)
 
@@ -21,17 +23,12 @@ const Calculator = () => {
 
     const data = []
     const a = JSON.parse(localStorage.getItem('data'))
-
-    
+ 
     //to handle the click
     const handle=() => {
-    
       const amountToPay = amount/numOfDays
       const roundOffAmount = Math.round(amountToPay * 100)/100
-
-      // const a = JSON.parse(localStorage.getItem('data')) //getting previous values from storage
-      // const data = []
-      const userData = {amount:amount,borrower:borrower,fromDate:fromDate,toDate:toDate,perDayAmount:roundOffAmount,endDateTimeStamp:endDateTimeStamp}
+      const userData = {amount:amount,borrower:borrower,fromDate:fromDate,toDate:toDate,perDayAmount:roundOffAmount,endDateTimeStamp:endDateTimeStamp,buttonActivity:buttonActivity}
       if (!a){
         data.push(userData)
       }
@@ -39,7 +36,7 @@ const Calculator = () => {
         //fetch the previous data by for loop and set it again in local storage
         var otherData
         for (let i = 0; i < a.length; i++) {
-          otherData = {amount:a[i].amount,borrower:a[i].borrower,fromDate:a[i].fromDate,toDate:a[i].toDate,perDayAmount:a[i].perDayAmount,endDateTimeStamp:a[i].endDateTimeStamp}
+          otherData = {amount:a[i].amount,borrower:a[i].borrower,fromDate:a[i].fromDate,toDate:a[i].toDate,perDayAmount:a[i].perDayAmount,endDateTimeStamp:a[i].endDateTimeStamp,buttonActivity:a[i].buttonActivity}
           data.push(otherData)
         }
           data.push(userData)
@@ -84,7 +81,7 @@ const Calculator = () => {
         <br /> <br />
         <input className='inp'  type="text" placeholder='Borrower' onChange={nameHandler} required />{borrowerERR?<span>Invalid Name</span>:""}
         
-        <button  className='btne mt-5 fw-bold' variant="contained" onClick={handle}>Create New Loan</button>
+        <button  className='btne mt-5 fw-bold' variant="contained" onClick={()=>handle()}>Create New Loan</button>
       </div>
     );
 }

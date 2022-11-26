@@ -2,7 +2,7 @@ import React from 'react';
 import Calculator from './Calculator';
 import './App.css'
 import {ShowData} from './ShowData';
-import Paid from './Paid';
+//import Paid from './Paid';
 
 function App() {
   
@@ -14,9 +14,6 @@ function App() {
               <Calculator />
             </div>
           </div>
-        </div>
-        <div className='container2'>
-            <Paid />
         </div>
         <div>
           <ShowData />
